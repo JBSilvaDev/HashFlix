@@ -1,1 +1,19 @@
-# hashflix
+# Comandos usados
+- Instalando django
+  - `pip install django`
+- Instalando Pillow para trabalhar com imagens
+  - `python -m pip install Pillow`
+    - Tambem é necessario configurar o arquivo settings.py (static)
+    - Apos configurar, registrar configurações de midia
+      - `python manage.py collectstatic`
+- Iniciando projeto
+  - `django-admin startproject hashflix_setup .`
+- Criando app
+  - `django-admin startapp filme`
+- Inicializando/Atualizando db
+  - `python manage.py makemigrations`
+  - `python manage.py migrate`
+- Criando usuario adm
+  - `python manage.py createsuperuser`
+- Executando servidor
+  - `python manage.py runserver`
