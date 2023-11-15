@@ -1,12 +1,23 @@
 {% extends 'base.html' %}
 {% block titulo %}
-  HomeFilmes Hashflix
+HomeFilmes Hashflix
 {% endblock %}
 
 {% block content %}
-  <h1>Detalhes do filme: {{ object.titulo }}</h1>
-  <p>{{ object }}</p>
-  <p>{{ object.descricao }}</p>
-  <img src="{{ object.thumb.url }}">
+<h1>Detalhes do filme: {{ object.titulo }}</h1>
+<p>{{ object }}</p>
+<p>{{ object.descricao }}</p>
+<img src="{{ object.thumb.url }}">
+
+<h2>
+  Episodios
+</h2>
+
+{% for ep in object.episodios.all %}
+
+<a href="{{ ep.video }}">
+  <p>Episódio {{ forloop.counter}}: {{ ep.titulo }}</p>
+</a>
+{% endfor %}
 
 {% endblock %}
