@@ -12,4 +12,16 @@
 <a href="{{ ep.video }}">
   <p>Episódio {{ forloop.counter}}: {{ ep.titulo }}</p>
 </a>
-{% endfor %} {% endblock %}
+{% endfor %}
+<div class="py=10">
+  <h2>Filmes relacionados</h2>
+  {% for filme in filmes_relacionados %}
+  <p>
+    <a href="{% url 'filme:datalhesFilme'  filme.id  %}">
+      {{ filme.titulo }}
+    </a>
+    
+  </p>
+  {% endfor %}
+</div>
+{% endblock %}
