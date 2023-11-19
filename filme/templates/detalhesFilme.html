@@ -10,7 +10,7 @@
 {% for ep in object.episodios.all %}
 
 <a href="{{ ep.video }}">
-  <p>Episódio {{ forloop.counter}}: {{ ep.titulo }}</p>
+  <p>Episódio {{ forloop.counter }}: {{ ep.titulo }}</p>
 </a>
 {% endfor %}
 <div class="py=10">
