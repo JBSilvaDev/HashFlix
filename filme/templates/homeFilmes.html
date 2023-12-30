@@ -6,6 +6,7 @@
 {% block content %}
   <h1>Home Filmes</h1>
   <br /><br />
+  <!-- Variavel object_list criada na class HomeFilmes -->
   {% for filme in object_list %}
     <hr />
     <p><a href="{% url 'filme:datalhesFilme'  filme.id  %}">{{ filme.titulo }}</a></p>

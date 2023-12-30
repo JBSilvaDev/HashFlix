@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import *
 
+# Nome passado no arquivo de url padrão no paramentro namespace (opcional) usado quando há urls com mesmo nome para diferenciar a que app pertence
 app_name = 'filme'
 
 urlpatterns = [
