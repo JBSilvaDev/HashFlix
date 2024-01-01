@@ -4,15 +4,27 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Home Filmes</h1>
-  <br /><br />
-  <!-- Variavel object_list criada na class HomeFilmes -->
-  {% for filme in object_list %}
-    <hr />
-    <p><a href="{% url 'filme:datalhesFilme'  filme.id  %}">{{ filme.titulo }}</a></p>
-    <p>{{ filme.descricao }}</p>
-    <p>
-      <img src="{{ filme.thumb.url }}" class="w-5/12" alt="" />
-    </p>
-  {% endfor %}
+  <div class="py-10">
+    <h1>Home Filmes</h1>
+    <!-- Variavel object_list criada na class HomeFilmes -->
+    {% for filme in object_list %}
+      <hr>
+      <a href="{% url 'filme:datalhesFilme'  filme.id  %}"><p>{{ filme.titulo }}</p></a>
+      <p>{{ filme.descricao }}</p>
+        <img src="{{ filme.thumb.url }}">
+    {% endfor %}
+  </div>
+
+  <div class="py-10">
+    <h2>Novo</h2>
+    {% for novo in lista_filmes_recentes %}
+    <p>{{ novo }}</p>
+    {% endfor %}
+  </div>
+  <div class="py-10">
+    <h2>Em Alta</h2>
+    {% for novo in lista_filmes_em_alta %}
+    <p>{{ novo }}</p>
+    {% endfor %}
+  </div>
 {% endblock %}
