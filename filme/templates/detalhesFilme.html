@@ -7,10 +7,11 @@
 <img src="{{ object.thumb.url }}" />
 
 <h2>Episodios</h2>
-
+<!-- for que percorre a lista de filmes -->
 {% for ep in object.episodios.all %}
-
+<!-- link do video -->
 <a href="{{ ep.video }}">
+  <!-- forloop é do proprio django que tras uma contagem dos itens no loop (similar ao enummerate) -->
   <p>Episódio {{ forloop.counter }}: {{ ep.titulo }}</p>
 </a>
 {% endfor %}
@@ -21,7 +22,7 @@
     <a href="{% url 'filme:datalhesFilme'  filme.id  %}">
       {{ filme.titulo }}
     </a>
-    
+
   </p>
   {% endfor %}
 </div>
