@@ -5,7 +5,7 @@ HomeFilmes Hashflix
 {% endblock %}
 
 {% block head %}
-<link href="{% static 'css/style.css' %}" rel="stylesheet" >
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
 {% endblock %}
 
 
@@ -83,9 +83,9 @@ HomeFilmes Hashflix
       <div class="wrapper">
         <section id="section1emalta" class="flex flex-nowrap items-center justify-center space-x-8">
           <a href="#section2emalta" class="arrow__btn text-6xl page">‹</a>
-          {% for filme in lista_filmes_emalta %}
+          {% for filme in lista_filmes_em_alta %}
           {% if forloop.counter < 5 %} <div class="item h-64 w-1/4 m-4">
-            <a href="{% url 'filme:detalhesfilme' filme.pk %}">
+            <a href="{% url 'filme:detalhesFilme' filme.pk %}">
               <img src="{{ filme.thumb.url }}" class="rounded-md w-full h-full object-cover">
             </a>
       </div>
@@ -93,13 +93,13 @@ HomeFilmes Hashflix
       {% endfor %}
       <a href="#section2emalta" class="arrow__btn text-6xl">›</a>
   </section>
-  {% if lista_filmes_emalta|length > 4 %}
+  {% if lista_filmes_em_alta|length > 4 %}
   <section id="section2emalta" class="flex flex-nowrap items-center justify-center">
     <a href="#section1emalta" class="arrow__btn text-6xl">‹</a>
-    {% for filme in lista_filmes_emalta %}
+    {% for filme in lista_filmes_em_alta %}
     {% if forloop.counter > 4 %}
     <div class="item h-64 w-1/4 m-4">
-      <a href="{% url 'filme:detalhesfilme' filme.pk %}">
+      <a href="{% url 'filme:detalhesFilme' filme.pk %}">
         <img src="{{ filme.thumb.url }}" class="rounded-md w-full h-full object-cover">
       </a>
     </div>
@@ -115,7 +115,7 @@ HomeFilmes Hashflix
   </section>
 
 
-  <section class='bg-primary_black flex justify-center py-10'>
+  <!-- <section class='bg-primary_black flex justify-center py-10'>
     <div class="p-8 w-10/12 relative">
       <h2 class="text-gray-200 text-2xl font-medium">
         Continuar Assistindo
@@ -125,7 +125,7 @@ HomeFilmes Hashflix
           <a href="#section2vistos" class="arrow__btn text-6xl page">‹</a>
           {% for filme in request.user.filmes_vistos.all %}
           {% if forloop.counter < 5 %} <div class="item h-64 w-1/4 m-4">
-            <a href="{% url 'filme:detalhesfilme' filme.pk %}">
+            <a href="{% url 'filme:detalhesFilme' filme.pk %}">
               <img src="{{ filme.thumb.url }}" class="rounded-md w-full h-full object-cover">
             </a>
       </div>
@@ -139,7 +139,7 @@ HomeFilmes Hashflix
     {% for filme in request.user.filmes_vistos.all %}
     {% if forloop.counter > 4 %}
     <div class="item h-64 w-1/4 m-4">
-      <a href="{% url 'filme:detalhesfilme' filme.pk %}">
+      <a href="{% url 'filme:detalhesFilme' filme.pk %}">
         <img src="{{ filme.thumb.url }}" class="rounded-md w-full h-full object-cover">
       </a>
     </div>
@@ -150,41 +150,9 @@ HomeFilmes Hashflix
   {% endif %}
   </div>
 
-
   </div>
-  </section>
-
+  </section> -->
 
 </main>
 
-
-
-
-
-<div class="py-10">
-  <h1>Home Filmes</h1>
-  <!-- Variavel object_list criada na class HomeFilmes -->
-  {% for filme in object_list %}
-  <hr>
-  <a href="{% url 'filme:detalhesFilme'  filme.id  %}">
-    <p>{{ filme.titulo }}</p>
-  </a>
-  <p>{{ filme.descricao }}</p>
-  <img src="{{ filme.thumb.url }}">
-  {% endfor %}
-</div>
-
-<div class="py-10">
-  <h2>Novo</h2>
-  {% for novo in lista_filmes_recentes %}
-  <p>{{ novo }}</p>
-  {% endfor %}
-</div>
-<div class="py-10">
-  <h2>Em Alta</h2>
-  {% for novo in lista_filmes_em_alta %}
-  <p>{{ novo }}</p>
-  {% endfor %}
-  {{ lista_filmes_em_alta.titulo }}
-</div>
 {% endblock %}

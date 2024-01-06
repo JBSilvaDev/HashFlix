@@ -1,4 +1,4 @@
-# Criando contextos globais, disponiveis em toda aplicação
+# Criando contextos globais, disponiveis em toda aplicação, configuração para ser global feita em settings.py > TEMPLATES
 from .models import Filme
 
 def lista_filmes_recentes(request):
