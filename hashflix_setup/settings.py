@@ -65,6 +65,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "filme.novos_contexts.lista_filmes_recentes", # import dos novos context para disponibiliza-los a toda aplicação
                 "filme.novos_contexts.lista_filmes_em_alta", # import dos novos context para disponibiliza-los a toda aplicação
+                "filme.novos_contexts.filme_destaque", # import dos novos context para disponibiliza-los a toda aplicação
             ],
         },
     },

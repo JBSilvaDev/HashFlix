@@ -8,3 +8,7 @@ def lista_filmes_recentes(request):
 def lista_filmes_em_alta(request):
   lista_filmes = Filme.objects.all().order_by('-views')[:8]
   return {'lista_filmes_em_alta': lista_filmes}
+
+def filme_destaque(request):
+  filme = Filme.objects.all().order_by('-views')[0]
+  return {'filme_destaque': filme}
