@@ -1,5 +1,7 @@
 # from django.shortcuts import render
 from typing import Any
+
+from django.db.models.query import QuerySet
 from filme.models import Filme
 from django.views.generic import TemplateView, ListView, DetailView
 
@@ -21,7 +23,7 @@ class HomeFilmes(ListView):
     model = Filme
 
 
-# Por padrão esta classe espera um paramentro na url
+# Por padrão esta classe espera um paramentro do item a ser detalhado, no caso o id do filme passado na url
 class DetalhesFilme(DetailView):
     # Nome do arquivo HTML
     template_name = "detalhesFilme.html"
@@ -47,3 +49,20 @@ class DetalhesFilme(DetailView):
         # Salvando valor no db
         filme.save()
         return super(DetalhesFilme, self).get(request, *args, **kwargs) # Redireciona  usuario para o url final
+
+# Classe que ira listar os filmes que correspontem a pesquisa
+class PesquisaFilme(ListView):
+    # Nome do arquivo HTML
+    template_name = "pesquisaFilme.html"
+    # Modelo que sera listado no HTML ( passa como nome object que contem 1 item do nosso modelo )
+    model = Filme
+
+    # Função de pesquisa
+    def get_queryset(self):
+        # Obtem o que foi digitado no campo de nome pesquisa dentro do form
+        termo_pesquisa = self.request.GET.get('pesquisa')
+        if termo_pesquisa:
+            object_list = Filme.objects.filter(titulo__icontains = termo_pesquisa)
+            return object_list
+        else:
+            return None

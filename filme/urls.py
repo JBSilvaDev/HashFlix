@@ -8,4 +8,5 @@ urlpatterns = [
     path("", HomePage.as_view(), name="homepage"),
     path("filmes/", HomeFilmes.as_view(), name="homeFilmes"),
     path("filmes/<int:pk>", DetalhesFilme.as_view(), name="detalhesFilme"),
+    path("pesquisa/", PesquisaFilme.as_view(), name="pesquisaFilme"),
 ]
