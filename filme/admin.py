@@ -25,6 +25,21 @@ class ExibicaoAdminEps(admin.ModelAdmin):
     list_filter = ("filme",)
 
 
+# Incluindo campo na exibição da classe usuario na area ADM
+camposADM = list(UserAdmin.fieldsets)
+camposADM.append(
+    (
+        "Campos Extras",
+        {
+            "fields": ("filmes_vistos",),
+        },
+    )
+)
+
+UserAdmin.fieldsets = tuple(camposADM)
+
 admin.site.register(Filme, ExibicaoAdminFilme)
 admin.site.register(Episodio, ExibicaoAdminEps)
-admin.site.register(Usuario, UserAdmin) #UserAdmin é a exibição padrao dos usuarios na area adm
+admin.site.register(
+    Usuario, UserAdmin
+)  # UserAdmin é a exibição padrao dos usuarios na area adm
