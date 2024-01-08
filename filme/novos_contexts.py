@@ -10,5 +10,9 @@ def lista_filmes_em_alta(request):
   return {'lista_filmes_em_alta': lista_filmes}
 
 def filme_destaque(request):
-  filme = Filme.objects.all().order_by('-views')[0]
-  return {'filme_destaque': filme}
+  filme = Filme.objects.all().order_by('-views')
+  if filme:
+    return {'filme_destaque': filme[0]}
+  else:
+    return {'filme_destaque': None}
+    

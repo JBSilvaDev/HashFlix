@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Episodio, Filme
+from .models import Episodio, Filme, Usuario
+from django.contrib.auth.admin import UserAdmin
 
 
 # Register your models here.
@@ -26,3 +27,4 @@ class ExibicaoAdminEps(admin.ModelAdmin):
 
 admin.site.register(Filme, ExibicaoAdminFilme)
 admin.site.register(Episodio, ExibicaoAdminEps)
+admin.site.register(Usuario, UserAdmin) #UserAdmin é a exibição padrao dos usuarios na area adm

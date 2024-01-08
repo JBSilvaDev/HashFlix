@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
@@ -30,3 +31,8 @@ class Episodio(models.Model):
     
     def __str__(self):
         return self.titulo
+    
+# Classe para criar armazenar e gerenciar usuarios
+class Usuario(AbstractUser):
+    # Herda por padrão os atributos da classe abstract user, entao nesta classe irei colocar apenas campos novos a serem incluidos, campos como usuario, e senha nao serao definidos pois ja existem na classe pai e nao desejo sobrescreve-los.
+    filmes_vistos = models.ManyToManyField('Filme')
