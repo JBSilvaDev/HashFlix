@@ -48,6 +48,8 @@ class DetalhesFilme(DetailView):
         filme.views += 1
         # Salvando valor no db
         filme.save()
+        usuario = request.user
+        usuario.filmes_vistos.add(filme)
         return super(DetalhesFilme, self).get(request, *args, **kwargs) # Redireciona  usuario para o url final
 
 # Classe que ira listar os filmes que correspontem a pesquisa
