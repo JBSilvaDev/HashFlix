@@ -3,8 +3,10 @@ from typing import Any
 # Importe para passar as views que exigem login para serem exibidas
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
+from django.shortcuts import redirect, render
 from filme.models import Filme
 from django.views.generic import TemplateView, ListView, DetailView
+from django.contrib.auth import logout
 
 
 # def homepage(request):
@@ -12,6 +14,11 @@ from django.views.generic import TemplateView, ListView, DetailView
 class HomePage(TemplateView):
     # Nome do arquivo HTML
     template_name = "homepage.html"
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('filme:homeFilmes')
+        return super().get(request, *args, **kwargs) # retorna para o template name (url final)
 
 
 # def homeFilmes(request):
@@ -69,3 +76,7 @@ class PesquisaFilme(LoginRequiredMixin, ListView):
             return object_list
         else:
             return None
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'logout.html')

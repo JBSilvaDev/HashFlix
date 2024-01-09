@@ -11,6 +11,6 @@ urlpatterns = [
     path("pesquisa/", PesquisaFilme.as_view(), name="pesquisaFilme"),
     # Url para criar pagina de login usando a login view padrao do django
     path('login/', auth_view.LoginView.as_view(template_name = 'login.html'), name='login'),
-    path('logout/', auth_view.LogoutView.as_view(template_name = 'logout.html'), name='logout') #https://docs.djangoproject.com/en/5.0/topics/auth/default/#how-to-log-a-user-out
+    path('logout/', logout_view, name='logout')
 
 ]
