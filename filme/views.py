@@ -1,6 +1,7 @@
 # from django.shortcuts import render
 from typing import Any
-
+# Importe para passar as views que exigem login para serem exibidas
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
 from filme.models import Filme
 from django.views.generic import TemplateView, ListView, DetailView
@@ -16,7 +17,7 @@ class HomePage(TemplateView):
 # def homeFilmes(request):
 #    lista_filmes = Filme.objects.all()
 #    return render(request, 'homeFilmes.html', {"lista":lista_filmes})
-class HomeFilmes(ListView):
+class HomeFilmes(LoginRequiredMixin, ListView):
     # Nome do arquivo HTML
     template_name = "homeFilmes.html"
     # Modelo que sera listado no HTML ( passa como nome object_list que contem todos itens do modelo )
@@ -24,7 +25,7 @@ class HomeFilmes(ListView):
 
 
 # Por padrão esta classe espera um paramentro do item a ser detalhado, no caso o id do filme passado na url
-class DetalhesFilme(DetailView):
+class DetalhesFilme(LoginRequiredMixin, DetailView):
     # Nome do arquivo HTML
     template_name = "detalhesFilme.html"
     # Modelo que sera listado no HTML ( passa como nome object que contem 1 item do nosso modelo )
@@ -53,7 +54,7 @@ class DetalhesFilme(DetailView):
         return super(DetalhesFilme, self).get(request, *args, **kwargs) # Redireciona  usuario para o url final
 
 # Classe que ira listar os filmes que correspontem a pesquisa
-class PesquisaFilme(ListView):
+class PesquisaFilme(LoginRequiredMixin, ListView):
     # Nome do arquivo HTML
     template_name = "pesquisaFilme.html"
     # Modelo que sera listado no HTML ( passa como nome object que contem 1 item do nosso modelo )
