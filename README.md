@@ -11,7 +11,7 @@ Siga estes passos para configurar e executar o projeto HashFlix em sua máquina 
 Se ainda não o fez, clone este repositório para sua máquina local:
 
 ```bash
-git clone <url_do_repositorio>
+git clone https://github.com/JBSilvaDev/HashFlix
 cd HashFlix
 ```
 
