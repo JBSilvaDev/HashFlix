@@ -21,9 +21,9 @@ HomePage Hashflix
 
         <div class="w-full flex justify-center">
             <div class="flex justify-center items-center w-11/12 md:w-10/12">
-                <form method="post" class="w-6/12 justify-center">
+                <form action="{% url 'filme:check_email' %}" method="get" class="w-6/12 justify-center">
                     <div class="flex flex-grow items-stretch">
-                        <input>
+                        <input type="email" name="email" id="id_email" placeholder="Endereço de e-mail" class="p-3 rounded-tl-sm rounded-bl-sm text-black flex-grow" value="{{ request.GET.email|default_if_none:'' }}">
                         <button
                             class="bg-red-600 font-medium md:font-normal flex justify-center items-center py-2 px-3 md:px-0 rounded-br-sm rounded-tr-sm md:text-2xl"
                             type="submit">

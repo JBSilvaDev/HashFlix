@@ -14,14 +14,12 @@ HomeFilmes Hashflix
                 {{ object.descricao|slice:":100" }}...
             </p>
             <div class="flex my-4">
-                <a href="{{ object.episodios.first.video }}">
-                    <button class="flex items-center bg-white py-2 px-5 rounded-md" style='color:black;'>
-                        <ion-icon name="play" class="text-2xl"></ion-icon>
-                        <span class="ml-3 font-medium">
-                            Play
-                        </span>
-                    </button>
-                </a>
+                {% if embed_url %}
+                    <iframe id="video-player" width="560" height="315" src="{{ embed_url }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+                    class="w-full h-auto aspect-video"></iframe>
+                {% else %}
+                    <p class="text-white">Vídeo não disponível ou URL inválida.</p>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -44,7 +42,7 @@ HomeFilmes Hashflix
                 </h2>
                 {% for episodio in object.episodios.all %}
                     <h3 class='text-lg'>
-                        <a href="{{ episodio.video }}">
+                        <a href="#" class="episode-link" data-video-url="{{ episodio.video }}">
                             <p>Episódio {{ forloop.counter }}: {{ episodio.titulo }}</p>
                         </a>
                     </h3>
@@ -72,4 +70,33 @@ HomeFilmes Hashflix
     </section>
 
 </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const videoPlayer = document.getElementById('video-player');
+        const episodeLinks = document.querySelectorAll('.episode-link');
+
+        episodeLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default link behavior
+                const videoUrl = this.dataset.videoUrl;
+                
+                // Regex to extract YouTube video ID from various YouTube URL formats
+                const youtubeIdMatch = videoUrl.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|embed\/|v\/|)([a-zA-Z0-9_-]{11})/);
+
+                if (youtubeIdMatch) {
+                    const youtubeVideoId = youtubeIdMatch[1];
+                    const embedUrl = `https://www.youtube.com/embed/${youtubeVideoId}`;
+                    if (videoPlayer) {
+                        videoPlayer.src = embedUrl;
+                    }
+                } else {
+                    console.error("URL de vídeo inválida ou não suportada:", videoUrl);
+                    // Optionally, update the iframe src to a placeholder or show an error message
+                    // videoPlayer.src = "about:blank";
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}

@@ -5,9 +5,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
 from django.shortcuts import redirect, render
 from filme.models import Filme
-from django.views.generic import TemplateView, ListView, DetailView
-from django.contrib.auth import logout
-
+from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView
+from .forms import CreateAccountForm, EditProfileForm
+from .models import Usuario
+from django.urls import reverse_lazy
+from django.contrib.auth import login, logout
+import re
 
 # def homepage(request):
 #    return render(request, 'homepage.html')
@@ -46,6 +49,20 @@ class DetalhesFilme(LoginRequiredMixin, DetailView):
         filmes_relacionados = Filme.objects.filter(categoria=self.get_object().categoria)[ 0:5]  # Exibe no maxio 5 filmes com categorias iguais
         # Adiciona nova chave/valor ao dict context, passando os a variavel filmes_relacionados para o html
         context["filmes_relacionados"] = filmes_relacionados
+
+        # Get the first episode and extract YouTube embed URL
+        first_episode = self.get_object().episodios.first()
+        if first_episode and first_episode.video:
+            video_url = first_episode.video
+            # Regex to extract YouTube video ID from various YouTube URL formats
+            youtube_id_match = re.search(r'(?:https?://)?(?:www\.)?(?:youtube\.com|youtu\.be)/(?:watch\?v=|embed/|v/|)([a-zA-Z0-9_-]{11})', video_url)
+            if youtube_id_match:
+                youtube_video_id = youtube_id_match.group(1)
+                embed_url = f"https://www.youtube.com/embed/{youtube_video_id}"
+                context["embed_url"] = embed_url
+            else:
+                # Fallback or handle non-YouTube URLs if necessary
+                context["embed_url"] = video_url # Use original URL if not YouTube, might not embed properly
         return context
     
     # Função padrão do django class base views que ira obter uma pagina
@@ -80,3 +97,46 @@ class PesquisaFilme(LoginRequiredMixin, ListView):
 def logout_view(request):
     logout(request)
     return render(request, 'logout.html')
+
+
+class CriarConta(FormView):
+    template_name = "criarconta.html"
+    form_class = CreateAccountForm
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('filme:login')
+
+    
+
+    
+
+class EditarPerfil(LoginRequiredMixin, UpdateView):
+
+        template_name = "editarperfil.html"
+
+        form_class = EditProfileForm
+
+        model = Usuario
+
+        def get_object(self):
+
+            return self.request.user
+
+        def get_success_url(self):
+
+            return reverse_lazy('filme:homeFilmes')
+
+    
+def check_user_email(request):
+    email_input = request.GET.get('email')
+    if email_input:
+        user_exists = Usuario.objects.filter(email__iexact=email_input).exists()
+        if user_exists:
+            return redirect(reverse_lazy('filme:login') )
+        else:
+            return redirect(reverse_lazy('filme:criarconta'))
+    return redirect(reverse_lazy('filme:homepage'))

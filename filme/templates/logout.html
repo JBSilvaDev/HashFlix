@@ -6,14 +6,18 @@ Logout
 {% endblock %}
 
 {% block content %}
-Página de logout
-<footer class=" px-5 py-10 ">
-    <ul class="flex justify-between items-center">
-        <li>&copy; 2021</li>
-        <li> Feito com Python (Django)</li>
-        <li>Hashtag</li>
-    </ul>
-</footer>
-
-
+<div class="flex justify-center items-center h-screen bg-gray-900">
+    <div class="w-full max-w-md p-8 space-y-3 rounded-xl bg-gray-800 text-white text-center">
+        <h1 class="text-2xl font-bold">Você foi desconectado com sucesso.</h1>
+        <p class="text-lg">Obrigado por usar o HashFlix.</p>
+        <div class="space-y-4">
+            <a href="{% url 'filme:login' %}" class="block w-full px-4 py-2 text-lg font-semibold text-white bg-red-600 rounded-md hover:bg-red-700">
+                Fazer Login Novamente
+            </a>
+            <a href="{% url 'filme:homepage' %}" class="block w-full px-4 py-2 text-lg font-semibold text-red-600 border border-red-600 rounded-md hover:bg-red-600 hover:text-white">
+                Ir para a Página Inicial
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}
