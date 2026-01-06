@@ -71,6 +71,40 @@ python manage.py runserver
 
 A aplicação deve agora estar acessível em seu navegador web em `http://127.0.0.1:8000/`.
 
+## Projeto em execução
+
+<table>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="./image/README/1767734559499.png" altrong>
+      <div><strong>HomePage</strong></div>
+    </td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <img src="./image/README/1767734583583.png" altrong>
+      <div><strong>Cadastro</strong></div>
+    </td>
+    <td align="center">
+      <img src="./image/README/1767734605456.png" altrong>
+      <div><strong>Login</strong></div>
+    </td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <img src="./image/README/1767734627467.png" altrong>
+      <div><strong>Home Filmes</strong></div>
+    </td>
+    <td align="center">
+      <img src="./image/README/1767734657997.png" altrong>
+      <div><strong>Detalhes</strong></div>
+    </td>
+  </tr>
+</table>
+
+
 ## Correções e Melhorias Recentes
 
 - **Problema de Verificação CSRF:** Resolvido causas comuns de falhas na verificação CSRF (Cross-Site Request Forgery), garantindo que todos os formulários em `login.html`, `criarconta.html` e `editarperfil.html` incluam corretamente a tag de template `{% csrf_token %}`.
